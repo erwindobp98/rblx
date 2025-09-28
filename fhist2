@@ -1,8 +1,8 @@
 repeat task.wait() until game:IsLoaded() and game:GetService("Players") and game:GetService("Players").LocalPlayer and game:GetService("Players").LocalPlayer.Character
 
--- Daftar PlaceId dan script_id
+-- (Opsional) Daftar PlaceId dan script_id (bisa dihapus jika tak diperlukan)
 local scripts = {
-    [126884695634066] = "7a953911595e67e8494c3d3446b8be5b", 
+    [126884695634066] = "7a953911595e67e8494c3d3446b8be5b",
     [126509999114328] = "c67687e7d7ae30e2e9fd5658f34e8292",
     [137925884276740] = "2729679a8bec2bdc0cf738bc9be2610c",
     [103754275310547] = "57417a00f716dc2a604af0c07a3a6187",
@@ -21,14 +21,12 @@ gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 gui.ResetOnSpawn = false
 gui.Parent = player:WaitForChild("PlayerGui")
 
--- Load API
-local api = loadstring(game:HttpGet("https://sdkapi-public.luarmor.net/library.lua"))()
-
 -- Warna notifikasi
 local colors = {
     background = Color3.fromRGB(20, 20, 25),
     text       = Color3.fromRGB(240, 240, 240),
     accent     = Color3.fromRGB(255, 255, 255),
+    error      = Color3.fromRGB(255, 85, 85),
 }
 
 -- Fungsi notifikasi
@@ -78,12 +76,22 @@ local function showNotification(text, color)
     end)
 end
 
--- Langsung load script sesuai PlaceId
-local url = scripts[game.PlaceId]
-if url then
-    api.script_id = url
-    api.load_script()
-    showNotification("Script Loaded!", colors.accent)
+-- Langsung load script utama tanpa menggunakan API/key
+-- GANTI URL berikut jika Anda ingin load dari tempat lain
+local direct_url = "https://raw.githubusercontent.com/erwindobp98/rblx/refs/heads/main/Untitled"
+
+local success, err = pcall(function()
+    local body = game:HttpGet(direct_url)
+    local fn = loadstring(body)
+    if type(fn) == "function" then
+        fn()
+    else
+        error("loadstring returned non-function")
+    end
+end)
+
+if success then
+    showNotification("Script loaded langsung dari URL.", colors.accent)
 else
-    showNotification("No script found for this game.", Color3.fromRGB(255,85,85))
+    showNotification("Gagal load script: "..tostring(err), colors.error)
 end
