@@ -6,7 +6,7 @@ local TweenService = game:GetService("TweenService")
 
 -- GUI Notifikasi
 local gui = Instance.new("ScreenGui")
-gui.Name = "NoLagUI"
+gui.Name = "ween"
 gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 gui.ResetOnSpawn = false
 gui.Parent = player:WaitForChild("PlayerGui")
