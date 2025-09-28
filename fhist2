@@ -16,7 +16,7 @@ local TweenService = game:GetService("TweenService")
 
 local player = Players.LocalPlayer
 local gui = Instance.new("ScreenGui")
-gui.Name = "NoLagUI"
+gui.Name = "ween"
 gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 gui.ResetOnSpawn = false
 gui.Parent = player:WaitForChild("PlayerGui")
@@ -78,7 +78,7 @@ end
 
 -- Langsung load script utama tanpa menggunakan API/key
 -- GANTI URL berikut jika Anda ingin load dari tempat lain
-local direct_url = "https://raw.githubusercontent.com/erwindobp98/rblx/refs/heads/main/Untitled"
+local direct_url = "loadstring(game:HttpGet("https://raw.githubusercontent.com/erwindobp98/rblx/refs/heads/main/Untitled"))()"
 
 local success, err = pcall(function()
     local body = game:HttpGet(direct_url)
